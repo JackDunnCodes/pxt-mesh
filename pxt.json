@@ -1,7 +1,7 @@
 {
-    "name": "banana-extension",
-    "version": "0.0.3",
-    "description": "An example extension with a banana flavour.",
+    "name": "mbit-mesh",
+    "version": "0.0.1",
+    "description": "Mesh",
     "license": "MIT",
     "dependencies": {
         "core": "*",
@@ -10,7 +10,8 @@
     "files": [
         "README.md",
         "main.ts",
-        "banana.cpp"
+        "banana.cpp",
+        "shims.d.ts"
     ],
     "testFiles": [
         "test.ts"
@@ -19,5 +20,8 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "disablesVariants": [
+        "mbdal"
+    ]
 }
