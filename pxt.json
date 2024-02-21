@@ -11,7 +11,8 @@
         "README.md",
         "main.ts",
         "banana.cpp",
-        "shims.d.ts"
+        "shims.d.ts",
+        "enums.d.ts"
     ],
     "testFiles": [
         "test.ts"
