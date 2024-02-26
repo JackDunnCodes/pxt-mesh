@@ -74,7 +74,7 @@ namespace mesh{
 		volatile uint8_t protocol;
 		volatile uint8_t payload[RADIO_MAX_PAYLOAD_SIZE];
 
-		CoePayload* next;
+		MeshPayload* next;
 		int rssi;
 		int receptionCount;
 	};
@@ -100,14 +100,14 @@ namespace mesh{
 			uint8_t retransmissionAttempts = 0;
 
 			// uses 2 queues to improve safety( no need to repurpose the same queue)
-			CoePayload* txQueue = NULL;// the packets to be transmitted
-			CoePayload* rxQueue = NULL;// the packets received by the radio
-			CoePayload* rxQueueTail = NULL;
-			CoePayload* rxBuf = new CoePayload();//for receiving packets
-			CoePayload* lastRx = NULL;// the last packet received, to allow for comparison with incoming packets
-			CoePayload* txEcho = NULL; // for receptions of the transmitted packet for analysis 
-			CoePayload* txEchoTail = NULL;
-			CoePayload* txTimeOut = NULL;
+			MeshPayload* txQueue = NULL;// the packets to be transmitted
+			MeshPayload* rxQueue = NULL;// the packets received by the radio
+			MeshPayload* rxQueueTail = NULL;
+			MeshPayload* rxBuf = new MeshPayload();//for receiving packets
+			MeshPayload* lastRx = NULL;// the last packet received, to allow for comparison with incoming packets
+			MeshPayload* txEcho = NULL; // for receptions of the transmitted packet for analysis 
+			MeshPayload* txEchoTail = NULL;
+			MeshPayload* txTimeOut = NULL;
 
 			CoeProtocol* protocols[8];
 			uint8_t numProtocols = 0;
@@ -127,7 +127,7 @@ namespace mesh{
 			 * prior to sending, it is checked whether a flood is in progress (this could be the device sending or receiving) and if a flood is in progress, no transmission is commenced. This does not offer absolute protection, for that a controlling scheduler is needed.
 			 * @return DEVICE_OK on success, or DEVICE_INVALID parameters if p is invalid
 			*/
-			virtual int send(CoePayload* p) = 0;
+			virtual int send(MeshPayload* p) = 0;
 
 			/**
 			 * disables the radio
@@ -137,7 +137,7 @@ namespace mesh{
 			/**
 			 * receives a packet from the receive queue
 			*/
-			virtual CoePayload* recv() = 0;
+			virtual MeshPayload* recv() = 0;
 
 			/**
 			 * stores a receieved packet

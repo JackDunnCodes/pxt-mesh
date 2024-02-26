@@ -44,8 +44,8 @@ namespace mesh {
      * Get last received buffer
      */
     //%
-    char* getLastRxBuffer() {
-        return (char*)radio->recv()->payload;
+    Buffer getLastRxBuffer() {
+        return (char*)radio->recv();
     }
 
     /**
