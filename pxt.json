@@ -10,7 +10,7 @@
     "files": [
         "README.md",
         "main.ts",
-        "banana.cpp",
+        "mesh.cpp",
         "shims.d.ts",
         "enums.d.ts"
     ],
