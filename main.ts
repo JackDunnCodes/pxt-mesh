@@ -10,69 +10,60 @@
  */
 
 // Icon unicode characters can be found at: http://fontawesome.io/icons/
-//% color=#c2b711 weight=100 icon="\uf1ec" block="Banana Blocks" advanced=false
-namespace banana {
-
+//% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
+namespace mesh {
+    // 
     /**
-     * How many bananas?
+     * Send data shim. 
      *
-     * This function is fully implemented in TypeScript.
-     *
-     * @param n number of bananas
      */
-    //% blockId=banana_bananas
-    //% block="how many bananas %n"
-    export function bananas(n: number): number {
-        return n;
-    }
-
-    /**
-     * Add your bananas!
-     *
-     * This function is a shim and the micro:bit runs the C++ version.
-     *
-     * @param n number of bananas
-     */
-    //% blockId=banana_banana_add
-    //% block="add your bananas %n | + %m"
-    //% shim=banana::banana_add
-    export function bananaAdd(n: number, m: number): number {
-        // Valid function for simulator
-        return n * m;
-    }
-
-    /**
-     * Multiply your bananas by a predefined multiplier depending on the
-     * micro:bit version that runs this code!
-     * 
-     * This function is a shim and the micro:bit runs the C++ version.
-     * The output of this function will depend on the version of the micro:bit
-     * that runs it, V1 or V2.
-     *
-     * @param n number of bananas
-     */
-    //% blockId=banana_banana_multiplier
-    //% block="multiply your bananas %n"
-    //% shim=banana::banana_multiplier
-    export function bananaMultiplier(n: number): number {
+    //% shim=mesh::sendText
+    export function shim_sendText(length: number, sendString: string) {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
-        return 0;
+        return;
+    }
+    /**
+     * get last RX buffer
+     *
+     */
+    //% shim=mesh::getLastRxBuffer
+    export function shim_getLastRxBuffer(): string {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return "shimmer!";
+    }
+    /**
+     * Turn on (AKA initialise) the radio, and get ready for the network!
+     * You need to run this before you can send and receive data, because
+     * this tells the Micro:bit to listen and contribute to the network.
+     *
+     */
+    //% blockId=mbitmesh_init_radio
+    //% block="initialise mesh radio"
+    //% shim=mesh::initRadio
+    export function shim_initRadio() {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return;
     }
 
     /**
-     * Get your bananas! But this version only works on micro:bit V2.
-     * 
-     * This function is a shim and the micro:bit runs the C++ version.
-     *
-     * @param n number of bananas
+     * Send some text across the mesh network.
      */
-    //% blockId=banana_banana_add_v2
-    //% block="how many bananas (V2 only) %n"
-    //% shim=banana::bananas_v2_only
-    export function bananasV2(n: number): number {
-        // TODO: Figure out how the simulator differentiates between micro:bit
-        //       versions
-        return 0;
+    //% blockId=mbitmesh_send
+    //% block="send %str across mesh"
+    export function sendData(str: string) {
+        let length = str.length;
+        return shim_sendText(length, str);
+    }
+
+    /**
+     * Read in the last piece of text this node received
+     */
+    //% blockId=mbitmesh_recv
+    //% block="send %str across mesh"
+    export function recv(): string {
+        return shim_getLastRxBuffer();
     }
 }

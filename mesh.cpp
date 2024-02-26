@@ -6,19 +6,46 @@
  * Info about shims: https://makecode.com/simshim
  */
 #include "pxt.h"
+#include "MeshRadio_NRF52_nrf1m.h"
+// #include "MicroBit.h"
 
 using namespace pxt;
 
-namespace banana {
+namespace mesh {
     #define V1_MULTIPLIER 2
     #define V2_MULTIPLIER 3
-
+    MeshRadio_NRF52_nrf1m radio;
+    int pid = 0;
     /**
-     * This simple C++ function to simply add your bananas!
+     * Turn on the radio, and get ready for the network. You'll need to
+     * do this before you can send or receive anything
      */
     //%
-    int banana_add(int bananas, int multiplier) {
-        return bananas + multiplier;
+    void initRadio() {
+        radio = new MeshRadio_NRF52_nrf1m(true);
+        radio->enable();
+    }
+
+    /**
+     * Send some text
+     */
+    //%
+    void sendText(int length, char* sendString) {
+        MeshPayload *p = new MeshPayload();
+        p->length = length;
+        p->packetID = pid++;
+        p->counter = 0;
+        p->maxCount = 3;
+	    memcpy((void*)p->payload,sendString,3);
+        radio->send(payload);
+    }
+
+    /**
+     * Get last received buffer
+     */
+    //%
+    char* getLastRxBuffer() {
+        return (char*)radio->recv()->payload;
     }
 
     /**
