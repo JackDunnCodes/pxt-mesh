@@ -17,7 +17,7 @@ namespace mesh {
      * Send data shim. 
      *
      */
-    //% shim=mesh::sendText
+    //% shim=mesh::sendTextCpp
     export function shim_sendText(length: number, sendString: string) {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
@@ -73,17 +73,17 @@ namespace mesh {
         }
         get stringPayload() {
             const offset = 7;
-            return offset ? this.data.slice(offset, offset = this.packetLength).toString() : undefined;
+            return offset ? this.data.slice(offset, offset + this.packetLength).toString() : undefined;
         }
 
-        set stringPayload(val: string) {
-            const offset = getStringOffset(this.packetType) as number;
-            if (offset) {
-                const buf = control.createBufferFromUTF8(truncateString(val, getMaxStringLength(this.packetType)));
-                this.data[offset] = buf.length;
-                this.data.write(offset + 1, buf);
-            }
-        }
+        // set stringPayload(val: string) {
+        //     const offset = getStringOffset(this.packetType) as number;
+        //     if (offset) {
+        //         const buf = control.createBufferFromUTF8(truncateString(val, getMaxStringLength(this.packetType)));
+        //         this.data[offset] = buf.length;
+        //         this.data.write(offset + 1, buf);
+        //     }
+        // }
 
         // get numberPayload() {
         //     switch (this.packetType) {
@@ -118,7 +118,7 @@ namespace mesh {
      */
     //% blockId=mbitmesh_init_radio
     //% block="initialise mesh radio"
-    //% shim=mesh::initRadio
+    //% shim=mesh::initRadioCpp
     export function initRadio() {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions

@@ -21,7 +21,7 @@ namespace mesh {
      * do this before you can send or receive anything
      */
     //%
-    void initRadio() {
+    void initRadioCpp() {
         radio = new MeshRadio_NRF52_nrf1m(true);
         radio->enable();
     }
@@ -30,7 +30,7 @@ namespace mesh {
      * Send some text
      */
     //%
-    void sendText(int length, char* sendString) {
+    void sendTextCpp(int length, char* sendString) {
         MeshPayload *p = new MeshPayload();
         p->length = length;
         p->packetID = pid++;
