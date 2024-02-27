@@ -14,7 +14,7 @@ using namespace pxt;
 namespace mesh {
     #define V1_MULTIPLIER 2
     #define V2_MULTIPLIER 3
-    MeshRadio_NRF52_nrf1m radio;
+    MeshRadio_NRF52_nrf1m* radio;
     int pid = 0;
     /**
      * Turn on the radio, and get ready for the network. You'll need to
