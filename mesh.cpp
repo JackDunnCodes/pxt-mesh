@@ -47,6 +47,7 @@ namespace mesh {
     Buffer getLastRxBuffer() {
         mesh::MeshPayload *payload;
         memcpy(payload,radio->recv(),sizeof(MeshPayload));
+        payload->payload = "This is a test";
         return mkBuffer(payload,255);
     }
 
