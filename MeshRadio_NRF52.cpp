@@ -1,5 +1,5 @@
 #include "MeshRadio_NRF52.h"
-#include "Microbit.h"
+// #include "Microbit.h"
 
 #define COE_RADIO_POWER_LEVELS 9
 
