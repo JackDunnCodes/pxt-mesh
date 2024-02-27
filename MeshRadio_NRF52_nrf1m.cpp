@@ -1,6 +1,6 @@
 #include "MeshRadio_NRF52_nrf1m.h"
 #include <cstdint>
-#include "Microbit.h"
+#include "MicroBit.h"
 #include "Utils.h"
 
 
