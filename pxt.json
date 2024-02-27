@@ -18,7 +18,8 @@
         "MeshRadio.cpp",
         "MeshRadio.h",
         "shims.d.ts",
-        "enums.d.ts"
+        "enums.d.ts",
+        "Utils.h"
     ],
     "testFiles": [
         "test.ts"
