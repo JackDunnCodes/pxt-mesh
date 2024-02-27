@@ -10,7 +10,7 @@ namespace mesh
 #include <cstdint>
 #include <cstddef>
 #include "MicroBit.h"
-#include "MeshRadioAccess.h"
+// #include "MeshRadioAccess.h"
 
 //device ID
 #define DEVICE_ID_COE_RADIO 50
