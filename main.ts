@@ -35,6 +35,18 @@ namespace mesh {
         return null;
     }
 
+    function truncateString(str: string, bytes: number) {
+        str = str.slice(0, bytes);
+        let buff = control.createBufferFromUTF8(str);
+
+        while (buff.length > bytes) {
+            str = str.substr(0, str.length - 1);
+            buff = control.createBufferFromUTF8(str);
+        }
+
+        return str;
+    }
+
     /**struct MeshPayload{
 		volatile uint8_t length;
 		volatile uint8_t deviceID;//needs a longer int
@@ -83,7 +95,7 @@ namespace mesh {
         set stringPayload(val: string) {
             const offset = 7;
             if (offset) {
-                const buf = control.createBufferFromUTF8(truncateString(val, getMaxStringLength(this.packetType)));
+                const buf = control.createBufferFromUTF8(truncateString(val, 248));
                 this.packetLength = buf.length;
                 this.data.write(offset + 1, buf);
             }
@@ -137,7 +149,7 @@ namespace mesh {
     export function sendText(str: string) {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
-        return shim_sendText(pkt);
+        return shim_sendText(pkt.data);
     }
 
     /**
