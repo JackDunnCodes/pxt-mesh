@@ -1,6 +1,6 @@
 
 #include "MeshRadio.h"
-using namespace codal;
+using namespace mesh;
 
 bool MeshRadio::isFloodInProgress(){
     return floodInProgress;

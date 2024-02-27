@@ -3,7 +3,7 @@
 #define COE_RADIO_NRF52_PPI_CHANNEL_START 10
 #define COE_RADIO_NRF52_GPIOTE_CHANNEL 7
 
-namespace codal{
+namespace mesh{
 	class MeshRadio_NRF52_nrf1m: public MeshRadio_NRF52{
 		
 		public:

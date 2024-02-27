@@ -4,7 +4,7 @@
 #include "Utils.h"
 
 
-using namespace codal;
+using namespace mesh;
 
 //variables necessary for the interrupt
 MeshRadio_NRF52_nrf1m* MeshRadio_NRF52_nrf1m::instance = NULL;
