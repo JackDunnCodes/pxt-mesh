@@ -11,6 +11,12 @@
         "README.md",
         "main.ts",
         "mesh.cpp",
+        "MeshRadio_NRF52_nrf1m.cpp",
+        "MeshRadio_NRF52_nrf1m.h",
+        "MeshRadio_NRF52.cpp",
+        "MeshRadio_NRF52.h",
+        "MeshRadio.cpp",
+        "MeshRadio.h",
         "shims.d.ts",
         "enums.d.ts"
     ],
