@@ -156,7 +156,7 @@ namespace mesh {
      * Read in the last piece of text this node received
      */
     //% blockId=mbitmesh_recv
-    //% block="send %str across mesh"
+    //% block="last mesh net message"
     export function recv(): string {
         let buf = shim_getLastRxBuffer();
         let pkt = RadioPacket.getPacket(buf);
