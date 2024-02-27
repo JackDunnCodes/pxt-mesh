@@ -86,7 +86,7 @@ namespace mesh{
 		DeviceInfo* next;
 	};
 
-	class MeshRadio: CodalComponent, public MeshRadioAccess{
+	class MeshRadio: CodalComponent {
 		public://protected:
 			bool enabled = false;
 			uint8_t windowLengthTime = 0;
