@@ -12,13 +12,14 @@
 // Icon unicode characters can be found at: http://fontawesome.io/icons/
 //% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
 namespace mesh {
+    const RADIO_MAX_PACKET_SIZE = 248 + 7;
     // 
     /**
      * Send data shim. 
      *
      */
     //% shim=mesh::sendTextCpp
-    export function shim_sendText(length: number, sendString: string) {
+    export function shim_sendText(pkt: Buffer) {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
@@ -54,14 +55,13 @@ namespace mesh {
             return new RadioPacket(data);
         }
 
-        public static mkPacket(packetType: number) {
+        public static mkPacket() {
             const res = new RadioPacket();
-            res.data[0] = packetType;
             return res;
         }
 
         private constructor(public readonly data?: Buffer) {
-            // if (!data) this.data = control.createBuffer(RADIO_MAX_PACKET_SIZE + 4);
+            if (!data) this.data = control.createBuffer(RADIO_MAX_PACKET_SIZE + 4);
         }
 
         // get signal() {
@@ -71,19 +71,23 @@ namespace mesh {
         get packetLength() {
             return this.data[0];
         }
+        set packetLength(length: number) {
+            this.data[0] = length;
+        }
+
         get stringPayload() {
             const offset = 7;
             return offset ? this.data.slice(offset, offset + this.packetLength).toString() : undefined;
         }
 
-        // set stringPayload(val: string) {
-        //     const offset = getStringOffset(this.packetType) as number;
-        //     if (offset) {
-        //         const buf = control.createBufferFromUTF8(truncateString(val, getMaxStringLength(this.packetType)));
-        //         this.data[offset] = buf.length;
-        //         this.data.write(offset + 1, buf);
-        //     }
-        // }
+        set stringPayload(val: string) {
+            const offset = 7;
+            if (offset) {
+                const buf = control.createBufferFromUTF8(truncateString(val, getMaxStringLength(this.packetType)));
+                this.packetLength = buf.length;
+                this.data.write(offset + 1, buf);
+            }
+        }
 
         // get numberPayload() {
         //     switch (this.packetType) {
@@ -131,8 +135,9 @@ namespace mesh {
     //% blockId=mbitmesh_send
     //% block="send %str across mesh"
     export function sendText(str: string) {
-        let length = str.length;
-        return shim_sendText(length, str);
+        let pkt = RadioPacket.mkPacket();
+        pkt.stringPayload = str;
+        return shim_sendText(pkt);
     }
 
     /**

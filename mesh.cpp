@@ -30,8 +30,8 @@ namespace mesh {
      * Send some text
      */
     //%
-    void sendTextCpp(int length, char* sendString) {
-        MeshPayload *p = new MeshPayload();
+    void sendTextCpp(Buffer pkt) {
+        MeshPayload *p = (MeshPayload*) pkt;
         p->length = length;
         p->packetID = pid++;
         p->counter = 0;
@@ -45,7 +45,7 @@ namespace mesh {
      */
     //%
     Buffer getLastRxBuffer() {
-        return (char*)radio->recv();
+        return radio->recv();
     }
 
     /**
