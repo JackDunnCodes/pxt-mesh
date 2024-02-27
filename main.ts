@@ -97,7 +97,7 @@ namespace mesh {
             if (offset) {
                 const buf = control.createBufferFromUTF8(truncateString(val, 248));
                 this.packetLength = buf.length;
-                this.data.write(offset + 1, buf);
+                this.data.write(offset, buf);
             }
         }
 
