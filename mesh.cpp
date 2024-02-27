@@ -22,7 +22,7 @@ namespace mesh {
      */
     //%
     void initRadioCpp() {
-        radio = new MeshRadio_NRF52_nrf1m(true);
+        radio = new MeshRadio_NRF52_nrf1m();
         radio->enable();
     }
 
@@ -32,12 +32,11 @@ namespace mesh {
     //%
     void sendTextCpp(Buffer pkt) {
         MeshPayload *p = (MeshPayload*) pkt;
-        p->length = length;
         p->packetID = pid++;
         p->counter = 0;
         p->maxCount = 3;
-	    memcpy((void*)p->payload,sendString,3);
-        radio->send(payload);
+	    // memcpy((void*)p->payload,sendString,3);
+        radio->send(p);
     }
 
     /**

@@ -142,7 +142,7 @@ uint8_t MeshRadio_NRF52_nrf1m::getTTL(){
 	return rxBuf->maxCount-rxBuf->counter;
 }
 
-CoePayload* MeshRadio_NRF52_nrf1m::getRxBuf(){
+MeshPayload* MeshRadio_NRF52_nrf1m::getRxBuf(){
 	return rxBuf;
 }
 /**
@@ -150,14 +150,14 @@ CoePayload* MeshRadio_NRF52_nrf1m::getRxBuf(){
 */
 void MeshRadio_NRF52_nrf1m::savePacket(){
 	if(rxQueue == NULL){
-	 	rxQueue = new CoePayload();
+	 	rxQueue = new MeshPayload();
 	 	rxQueueTail = rxQueue;
 	}else{
-		rxQueueTail->next = new CoePayload();
+		rxQueueTail->next = new MeshPayload();
 		rxQueueTail = rxQueueTail->next;
 	}
 	if(lastRx == NULL){
-		lastRx = new CoePayload();
+		lastRx = new MeshPayload();
 	}
 	memcpy(lastRx,rxBuf,rxBuf->length+1);
 	memcpy(rxQueueTail,rxBuf,rxBuf->length+1);
@@ -227,7 +227,7 @@ void MeshRadio_NRF52_nrf1m::enable(bool flood){
 	enabled = true;
 }
 
-int MeshRadio_NRF52_nrf1m::send(CoePayload* p){
+int MeshRadio_NRF52_nrf1m::send(MeshPayload* p){
 	if(p == NULL){
 		return DEVICE_INVALID_PARAMETER;
 	}
@@ -293,11 +293,11 @@ void MeshRadio_NRF52_nrf1m::listen(){
 /**
  * returns a single packet from the receive queue
 */
-CoePayload* MeshRadio_NRF52_nrf1m::recv(){
+MeshPayload* MeshRadio_NRF52_nrf1m::recv(){
 	if(!rxQueue){
 		return NULL;
 	}else{
-		CoePayload* temp = rxQueue;
+		MeshPayload* temp = rxQueue;
 		rxQueue = rxQueue->next;
 		if(rxQueueTail == temp){
 			rxQueueTail = NULL;

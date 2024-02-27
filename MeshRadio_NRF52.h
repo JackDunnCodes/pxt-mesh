@@ -3,7 +3,7 @@
 
 #include "MeshRadio.h"
 
-class MeshRadio_NRF52: public MeshRadio{
+class MeshRadio_NRF52: public mesh::MeshRadio{
     protected:
         int transmitPower;
         uint8_t band;
