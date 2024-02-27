@@ -57,7 +57,7 @@ namespace mesh {
 		volatile uint8_t protocol;
 		volatile uint8_t payload[RADIO_MAX_PAYLOAD_SIZE];
 
-		CoePayload* next;
+		MeshPayload* next;
 		int rssi;
 		int receptionCount;
 	}; */

@@ -18,10 +18,10 @@ namespace mesh{
 
 
 			void enable(bool flood = FLOOD_AUTO);
-			int send(CoePayload* p);
+			int send(MeshPayload* p);
 			void disable();
 			void listen();
-			CoePayload* recv();
+			MeshPayload* recv();
 			void incrementCounter();
 			bool txQueueEmpty();
 			void progressTx();
@@ -29,7 +29,7 @@ namespace mesh{
 			void updateTimeout();
 			void resetTimeout();
 			uint8_t getTTL();
-			CoePayload* getRxBuf();
+			MeshPayload* getRxBuf();
 			void savePacket();
 			bool checkPacketUnique();
 			uint8_t getTransceiveMode();
