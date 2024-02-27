@@ -48,7 +48,8 @@ namespace mesh {
         mesh::MeshPayload *payload;
         memcpy(payload,radio->recv(),sizeof(MeshPayload));
 	    memcpy((void*)payload->payload,"This is a test",15);
-        return mkBuffer(payload,255);
+        payload->length = 15;
+        return mkBuffer(payload,sizeof(MeshPayload));
     }
 
     /**
