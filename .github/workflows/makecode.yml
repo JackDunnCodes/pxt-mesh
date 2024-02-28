@@ -23,7 +23,7 @@ jobs:
         env:
           cache-name: npm-i-g-PXT-cache
         with:
-          path: ~/.npm
+          path: /opt/hostedtoolcache/node/
           key: ${{ runner.os }}-build-${{ env.cache-name }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
