@@ -13,6 +13,7 @@
 //% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
 namespace mesh {
     const RADIO_MAX_PACKET_SIZE = 260;
+    let debug = false;
     // 
     /**
      * Send data shim. 
@@ -62,7 +63,7 @@ namespace mesh {
 		int receptionCount;
 	}; */
     export class RadioPacket {
-        cache: string = null;
+        cache: string = "";
         public static getPacket(data: Buffer) {
             if (!data) return undefined;
             return new RadioPacket(data);
@@ -161,13 +162,24 @@ namespace mesh {
     export function sendText(str: string) {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
-        serial.writeBuffer(pkt.data);
-        serial.writeLine("--");
-        serial.writeNumber(pkt.packetLength);
-        serial.writeLine("--");
-        serial.writeString(pkt.stringPayload);
-        serial.writeLine("=====");
+        if (debug) {
+            serial.writeBuffer(pkt.data);
+            serial.writeLine("--");
+            serial.writeNumber(pkt.packetLength);
+            serial.writeLine("--");
+            serial.writeString(pkt.stringPayload);
+            serial.writeLine("=====");
+        }
         return shim_sendText(pkt.data);
+    }
+    /**
+     * Enable debug mode. Can't turn off.
+     */
+    //% blockId=mbitmesh_debug
+    //% block="Set debug mode on"
+    //% blockHidden=1
+    export function enableDebug() {
+        this.debug = true;
     }
 
     /**
@@ -178,15 +190,18 @@ namespace mesh {
     export function recv(): string {
         let buf = shim_getLastRxBuffer();
         let pkt = RadioPacket.getPacket(buf);
-        serial.writeBuffer(pkt.data);
-        serial.writeLine("--");
-        serial.writeNumber(pkt.packetLength);
-        serial.writeLine("--");
-        serial.writeString(pkt.stringPayload);
-        serial.writeLine("--");
-        serial.writeString(pkt.data[pkt.sliceIndices[0]].toString());
-        serial.writeNumber(pkt.sliceIndices[1]);
-        serial.writeLine("=====");
+        if(debug)
+        {
+            serial.writeBuffer(pkt.data);
+            serial.writeLine("--");
+            serial.writeNumber(pkt.packetLength);
+            serial.writeLine("--");
+            serial.writeString(pkt.stringPayload);
+            serial.writeLine("--");
+            serial.writeString(pkt.data[pkt.sliceIndices[0]].toString());
+            serial.writeNumber(pkt.sliceIndices[1]);
+            serial.writeLine("=====");
+        }
         return pkt.stringPayload;
     }
 }
