@@ -108,9 +108,10 @@ namespace mesh {
             this.cache = "";
             const offset = 7;
             if (offset) {
-                const buf = control.createBufferFromUTF8(truncateString(val, 248));
-                this.packetLength = buf.length;
-                this.data.write(offset, buf);
+                for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
+                    this.data[i] = val.charCodeAt(i);
+                }
+                this.packetLength = val.length;
             }
         }
 
