@@ -107,10 +107,10 @@ namespace mesh {
         set stringPayload(val: string) {
             this.cache = "";
             const offset = 7;
-            this.packetLength = val.length;
+            this.packetLength = val.length < 248 ? val.length : 248;
             if (offset) {
-                for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
-                    this.data[i] = val.charCodeAt(i);
+                for (let i = 0; i < this.packetLength; i++){
+                    this.data[i+offset] = val.charCodeAt(i);
                 }
             }
         }
@@ -174,7 +174,7 @@ namespace mesh {
         return shim_sendText(pkt.data);
     }
     /**
-     * Enable debug mode. Can't turn off.
+     * Enable debug mode. Can't turn off. Sorry.
      */
     //% blockId=mbitmesh_debug
     //% block="Set debug mode on"
