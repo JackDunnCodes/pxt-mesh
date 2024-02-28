@@ -128,7 +128,7 @@ namespace mesh {
     export function sendText(str: string) {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
-        return sendText(pkt.data);
+        return sendTextCpp(pkt.data);
     }
 
     /**
