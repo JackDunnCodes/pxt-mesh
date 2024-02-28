@@ -31,7 +31,8 @@ namespace mesh {
      */
     //%
     void sendTextCpp(Buffer pkt) {
-        MeshPayload *p;
+        MeshPayload *p = new MeshPayload();
+        memset(p, 0, sizeof(buf));
         memcpy(p,pkt->data,sizeof(MeshPayload));
         p->packetID = pid++;
         p->counter = 0;
