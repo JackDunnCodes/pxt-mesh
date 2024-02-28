@@ -98,14 +98,14 @@ namespace mesh {
             const offset = 7;
             if(!this.cache) 
                 for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
-                    serial.writeLine(">> "+this.cache);
+                    if(debug) serial.writeLine(">> "+this.cache);
                     if(this.data[i] != 0) this.cache += String.fromCharCode(this.data[i])
                 }
             return this.cache;
         }
 
         set stringPayload(val: string) {
-            this.cache = null;
+            this.cache = "";
             const offset = 7;
             if (offset) {
                 const buf = control.createBufferFromUTF8(truncateString(val, 248));
