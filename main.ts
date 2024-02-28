@@ -13,6 +13,27 @@
 //% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
 namespace mesh {
     const RADIO_MAX_PACKET_SIZE = 248 + 7;
+    // 
+    /**
+     * Send data shim. 
+     *
+     */
+    //% shim=mesh::sendTextCpp
+    export function shim_sendText(pkt: Buffer) {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return;
+    }
+    /**
+     * get last RX buffer
+     *
+     */
+    //% shim=mesh::getLastRxBuffer
+    export function shim_getLastRxBuffer(): Buffer {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return null;
+    }
 
     function truncateString(str: string, bytes: number) {
         str = str.slice(0, bytes);
@@ -128,7 +149,7 @@ namespace mesh {
     export function sendText(str: string) {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
-        return sendTextCpp(pkt.data);
+        return shim_sendText(pkt.data);
     }
 
     /**
@@ -137,7 +158,7 @@ namespace mesh {
     //% blockId=mbitmesh_recv
     //% block="last mesh net message"
     export function recv(): string {
-        let buf = getLastRxBuffer();
+        let buf = shim_getLastRxBuffer();
         let pkt = RadioPacket.getPacket(buf);
         return pkt.stringPayload;
     }
