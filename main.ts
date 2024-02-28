@@ -160,8 +160,12 @@ namespace mesh {
     //% block="last mesh net message"
     export function recv(): string {
         let buf = shim_getLastRxBuffer();
-        serial.writeBuffer(buf);
+        serial.writeString("=====");
         let pkt = RadioPacket.getPacket(buf);
+        serial.writeBuffer(pkt.data);
+        serial.writeString("=====");
+        serial.writeInt(pkt.packetLength);
+        serial.writeString(pkt.stringPayload);
         return pkt.stringPayload;
     }
 }
