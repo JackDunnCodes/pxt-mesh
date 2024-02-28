@@ -107,11 +107,11 @@ namespace mesh {
         set stringPayload(val: string) {
             this.cache = "";
             const offset = 7;
+            this.packetLength = val.length;
             if (offset) {
                 for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
                     this.data[i] = val.charCodeAt(i);
                 }
-                this.packetLength = val.length;
             }
         }
 
