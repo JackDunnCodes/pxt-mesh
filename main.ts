@@ -88,8 +88,9 @@ namespace mesh {
         }
 
         get stringPayload() {
-            const offset = 5;
-            return offset ? this.data.slice(offset, offset + this.packetLength).toString() : undefined;
+            const offset = 7;
+            return this.data.toString();
+            return offset ? this.data.slice(offset, offset + this.data[0]).toString() : undefined;
         }
 
         set stringPayload(val: string) {
