@@ -110,6 +110,7 @@ namespace mesh {
             this.packetLength = val.length < 248 ? val.length : 248;
             if (offset) {
                 for (let i = 0; i < this.packetLength; i++){
+                    if(debug) serial.writeLine("Write "+val.charCodeAt(i)+" from "+ i +" to "+(i+offset));
                     this.data[i+offset] = val.charCodeAt(i);
                 }
             }
@@ -174,10 +175,11 @@ namespace mesh {
         return shim_sendText(pkt.data);
     }
     /**
-     * Enable debug mode. Can't turn off. Sorry.
+     * Enable debug mode - output debug messages via serial.
+     * Can't turn off. Sorry.
      */
     //% blockId=mbitmesh_debug
-    //% block="Set debug mode on"
+    //% block="Set debug mode on (msgs -> serial)"
     //% blockHidden=1
     export function enableDebug() {
         debug = true;
