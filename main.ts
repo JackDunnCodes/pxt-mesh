@@ -149,6 +149,7 @@ namespace mesh {
     export function sendText(str: string) {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
+        serial.writeBuffer(pkt.data);
         return shim_sendText(pkt.data);
     }
 
@@ -159,6 +160,7 @@ namespace mesh {
     //% block="last mesh net message"
     export function recv(): string {
         let buf = shim_getLastRxBuffer();
+        serial.writeBuffer(buf);
         let pkt = RadioPacket.getPacket(buf);
         return pkt.stringPayload;
     }
