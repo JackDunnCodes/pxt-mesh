@@ -94,7 +94,6 @@ namespace mesh {
 
         get stringPayload() {
             const offset = 7;
-            return this.data.toString();
             return offset ? this.data.slice(this.sliceIndices[0], this.sliceIndices[1]).toString() : undefined;
         }
 
