@@ -12,7 +12,7 @@
 // Icon unicode characters can be found at: http://fontawesome.io/icons/
 //% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
 namespace mesh {
-    const RADIO_MAX_PACKET_SIZE = 248 + 7;
+    const RADIO_MAX_PACKET_SIZE = 260;
     // 
     /**
      * Send data shim. 
@@ -87,10 +87,15 @@ namespace mesh {
             this.data[0] = length;
         }
 
+        get sliceIndices() {
+            const offset = 7;
+            return [offset, offset + this.data[0]];
+        }
+
         get stringPayload() {
             const offset = 7;
             return this.data.toString();
-            return offset ? this.data.slice(offset, offset + this.data[0]).toString() : undefined;
+            return offset ? this.data.slice(this.sliceIndices[0], this.sliceIndices[1]).toString() : undefined;
         }
 
         set stringPayload(val: string) {
@@ -172,6 +177,8 @@ namespace mesh {
         serial.writeNumber(pkt.packetLength);
         serial.writeLine("--");
         serial.writeString(pkt.stringPayload);
+        serial.writeLine("--");
+        serial.writeString(pkt.data[pkt.sliceIndices[0]]);
         serial.writeLine("=====");
         return pkt.stringPayload;
     }
