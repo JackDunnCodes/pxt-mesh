@@ -62,6 +62,7 @@ namespace mesh {
 		int receptionCount;
 	}; */
     export class RadioPacket {
+        cache: string = null;
         public static getPacket(data: Buffer) {
             if (!data) return undefined;
             return new RadioPacket(data);
@@ -94,7 +95,11 @@ namespace mesh {
 
         get stringPayload() {
             const offset = 7;
-            return offset ? this.data.slice(this.sliceIndices[0], this.sliceIndices[1]).toString() : undefined;
+            if(!this.cache) 
+                for (let i = this.sliceIndices[0]; i++; i < this.sliceIndices[1]){
+                    this.cache += String.fromCharCode(this.data[i])
+                }
+            return this.cache;
         }
 
         set stringPayload(val: string) {
