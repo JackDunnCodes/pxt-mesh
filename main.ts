@@ -88,7 +88,7 @@ namespace mesh {
         }
 
         get stringPayload() {
-            const offset = 7;
+            const offset = 5;
             return offset ? this.data.slice(offset, offset + this.packetLength).toString() : undefined;
         }
 
@@ -150,6 +150,11 @@ namespace mesh {
         let pkt = RadioPacket.mkPacket();
         pkt.stringPayload = str;
         serial.writeBuffer(pkt.data);
+        serial.writeLine("--");
+        serial.writeNumber(pkt.packetLength);
+        serial.writeLine("--");
+        serial.writeString(pkt.stringPayload);
+        serial.writeLine("=====");
         return shim_sendText(pkt.data);
     }
 
