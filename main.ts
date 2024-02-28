@@ -178,7 +178,8 @@ namespace mesh {
         serial.writeLine("--");
         serial.writeString(pkt.stringPayload);
         serial.writeLine("--");
-        serial.writeString(pkt.data[pkt.sliceIndices[0]]);
+        serial.writeString(pkt.data[pkt.sliceIndices[0]].toString());
+        serial.writeNumber(pkt.sliceIndices[1]);
         serial.writeLine("=====");
         return pkt.stringPayload;
     }
