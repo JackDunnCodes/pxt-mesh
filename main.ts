@@ -98,7 +98,7 @@ namespace mesh {
             if(!this.cache) 
                 for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
                     serial.writeLine(">> "+this.cache);
-                    this.cache += String.fromCharCode(this.data[i])
+                    if(this.data[i] != 0) this.cache += String.fromCharCode(this.data[i])
                 }
             return this.cache;
         }
