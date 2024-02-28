@@ -179,7 +179,7 @@ namespace mesh {
     //% block="Set debug mode on"
     //% blockHidden=1
     export function enableDebug() {
-        this.debug = true;
+        debug = true;
     }
 
     /**
