@@ -96,7 +96,7 @@ namespace mesh {
         get stringPayload() {
             const offset = 7;
             if(!this.cache) 
-                for (let i = this.sliceIndices[0]; i++; i < this.sliceIndices[1]){
+                for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
                     this.cache += String.fromCharCode(this.data[i])
                 }
             return this.cache;
