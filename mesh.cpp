@@ -45,11 +45,11 @@ namespace mesh {
      */
     //%
     Buffer getLastRxBuffer() {
-        mesh::MeshPayload *payload;
-        memcpy(payload,radio->recv(),sizeof(MeshPayload));
-	    memcpy((void*)payload->payload,"This is a test",15);
-        payload->length = 15;
-        return mkBuffer(payload,sizeof(MeshPayload));
+        uint8_t buf[sizeof(MeshPayload)];
+        memset(buf, 0, sizeof(buf));
+        memcpy(buf,radio->recv(),sizeof(MeshPayload));
+        buf[7] = 'h';
+        return mkBuffer(buf,sizeof(buf));
     }
 
     /**
