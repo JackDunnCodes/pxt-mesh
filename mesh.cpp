@@ -37,7 +37,8 @@ namespace mesh {
         p->packetID = pid++;
         p->counter = 0;
         p->maxCount = 3;
-	    // memcpy((void*)p->payload,sendString,3);
+        p->length = p->length * 3;
+        // memcpy((void*)p->payload,sendString,3);
         radio->send(p);
     }
 
