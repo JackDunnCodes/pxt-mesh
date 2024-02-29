@@ -5,6 +5,7 @@
  * in the main.ts file that will be run in the simulator.
  * Info about shims: https://makecode.com/simshim
  */
+
 #include "pxt.h"
 #include "MeshRadio_NRF52_nrf1m.h"
 // #include "MicroBit.h"
@@ -37,10 +38,13 @@ namespace mesh {
         p->packetID = pid++;
         p->counter = 0;
         p->maxCount = 3;
-        // @todo I don't know why this is the answer, but it is. So uh, probably look into this. Or if not, divide by 3 on other side.
-        // p->length = p->length * 3;
-        // memcpy((void*)p->payload,sendString,3);
+        // For some reason, the payload is simply not sent at all, unless length is at least 3.
+        // TODO:FIXME I don't know why this is, and telling Tx that the packet is longer than it is seems bad.
+        if(p->length < 3) {
+            p->length = 3;
+        }
         radio->send(p);
+        
     }
 
     /**
