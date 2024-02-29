@@ -38,7 +38,7 @@ namespace mesh {
         p->counter = 0;
         p->maxCount = 3;
         // @todo I don't know why this is the answer, but it is. So uh, probably look into this. Or if not, divide by 3 on other side.
-        p->length = p->length * 3;
+        // p->length = p->length * 3;
         // memcpy((void*)p->payload,sendString,3);
         radio->send(p);
     }
