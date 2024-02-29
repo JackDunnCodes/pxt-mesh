@@ -55,7 +55,7 @@ namespace mesh {
         uint8_t buf[sizeof(MeshPayload)];
         memset(buf, 0, sizeof(buf));
         MeshPayload* payload = radio->recv();
-        if(payload == NULL) {
+        if(payload != NULL) {
             memcpy(buf,payload,sizeof(buf));
             // buf[7] = 'h';
             Buffer returnBuf = mkBuffer(buf, sizeof(buf));
