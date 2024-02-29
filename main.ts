@@ -196,7 +196,7 @@ namespace mesh {
     //% block="last mesh net message"
     export function recv(): string {
         let buf = shim_getLastRxBuffer();
-        if (buf != null)
+        if (buf == null)
             return "";
         let pkt = RadioPacket.getPacket(buf);
         if(debug)
