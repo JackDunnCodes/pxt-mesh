@@ -5,7 +5,7 @@
  * in the main.ts file that will be run in the simulator.
  * Info about shims: https://makecode.com/simshim
  */
-
+#include <cstdlib>
 #include "pxt.h"
 #include "MeshRadio_NRF52_nrf1m.h"
 // #include "MicroBit.h"
@@ -44,7 +44,7 @@ namespace mesh {
             p->length = 3;
         }
         radio->send(p);
-        
+        free(p);
     }
 
     /**
@@ -56,7 +56,9 @@ namespace mesh {
         memset(buf, 0, sizeof(buf));
         memcpy(buf,radio->recv(),sizeof(buf));
         // buf[7] = 'h';
-        return mkBuffer(buf,sizeof(buf));
+        Buffer returnBuf = mkBuffer(buf, sizeof(buf));
+        free(buf);
+        return returnBuf;
     }
 
     /**
