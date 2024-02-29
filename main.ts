@@ -98,8 +98,12 @@ namespace mesh {
             const offset = 7;
             if(!this.cache) 
                 for (let i = this.sliceIndices[0]; i < this.sliceIndices[1]; i++){
-                    if(debug) serial.writeLine(">> "+this.cache);
-                    if(this.data[i] != 0) this.cache += String.fromCharCode(this.data[i].toString())
+                    if (debug) serial.writeLine(">> " + this.cache);
+                    let char: (string | number) = this.data[i]
+                    if (typeof char  == 'string') {
+                        char = parseInt(char);
+                    }
+                    if(this.data[i] != 0) this.cache += String.fromCharCode(char)
                 }
             return this.cache;
         }
