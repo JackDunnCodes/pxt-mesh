@@ -7,6 +7,7 @@
  */
 #include <cstdlib>
 #include "pxt.h"
+#include "MeshRadio.h"
 #include "MeshRadio_NRF52_nrf1m.h"
 // #include "MicroBit.h"
 
