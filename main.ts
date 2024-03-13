@@ -14,6 +14,7 @@
 namespace mesh {
     const RADIO_MAX_PACKET_SIZE = 260;
     let debug = false;
+    let onReceivedStringHandler: (receivedString: string) => void;
     // 
     /**
      * Send data shim. 
@@ -154,10 +155,36 @@ namespace mesh {
     //% blockId=mbitmesh_init_radio
     //% block="initialise mesh radio"
     //% shim=mesh::initRadioCpp
-    export function initRadio() {
+    //% blockHidden=1 deprecated=true
+    export function shim_initRadio() {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
+    }
+
+    /**
+     * Turn on (AKA initialise) the radio, and get ready for the network!
+     * You need to run this before you can send and receive data, because
+     * this tells the Micro:bit to listen and contribute to the network.
+     *
+     */
+    //% blockId=mbitmesh_init_radio
+    //% block="initialise mesh radio"
+    export function initRadio() {
+        shim_initRadio();
+        onDataReceived(handleDataReceived);
+    }
+
+    /**
+     * Registers code to run when the radio receives a string.
+     */
+    //% help=radio/on-received-string
+    //% blockId=radio_on_string_drag block="on radio received" blockGap=16
+    //% useLoc="radio.onDataPacketReceived" draggableParameters=reporter
+    //% group="Receive"
+    //% weight=18
+    export function onReceivedString(cb: (receivedString: string) => void) {
+        onReceivedStringHandler = cb;
     }
 
     /**
@@ -212,5 +239,13 @@ namespace mesh {
             serial.writeLine("=====");
         }
         return pkt.stringPayload;
+    }
+
+    function handleDataReceived() {
+        let stringRecvd: string = recv();
+        while (stringRecvd) {
+            onReceivedStringHandler(stringRecvd);
+            stringRecvd = recv()
+        }
     }
 }

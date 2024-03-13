@@ -65,6 +65,13 @@ namespace mesh {
             return NULL;
     }
 
+    void onDataReceived(Action body) {
+        // if (radioEnable() != DEVICE_OK) return;
+
+        registerWithDal(DEVICE_ID_COE_RADIO, DEVICE_COE_RADIO_EVT_DATA_READY, body);
+        getRadio()->datagram.recv(); // wake up read code      
+    }
+
     /**
      * This function uses the C preprocessor to compile different code
      * depending on the version of the micro:bit.
