@@ -146,14 +146,8 @@ namespace mesh {
         //     }
         // }
     }
-    /**
-     * Turn on (AKA initialise) the radio, and get ready for the network!
-     * You need to run this before you can send and receive data, because
-     * this tells the Micro:bit to listen and contribute to the network.
-     *
-     */
-    //% blockId=mbitmesh_init_radio
-    //% block="initialise mesh radio"
+    //% blockId=mbitmesh_init_radio_shim
+    //% block="initialise mesh radio [shim]"
     //% shim=mesh::initRadioCpp
     //% blockHidden=1 deprecated=true
     export function shim_initRadio() {
@@ -161,6 +155,16 @@ namespace mesh {
         //       versions
         return;
     }
+    
+
+    //% shim=mesh::onDataReceived
+    //% blockHidden=1 deprecated=true
+    export function shim_onDataReceived() {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return;
+    }
+    
 
     /**
      * Turn on (AKA initialise) the radio, and get ready for the network!
@@ -172,7 +176,7 @@ namespace mesh {
     //% block="initialise mesh radio"
     export function initRadio() {
         shim_initRadio();
-        onDataReceived(handleDataReceived);
+        shim_onDataReceived(handleDataReceived);
     }
 
     /**
