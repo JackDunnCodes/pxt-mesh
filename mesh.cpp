@@ -69,7 +69,6 @@ namespace mesh {
         // if (radioEnable() != DEVICE_OK) return;
 
         registerWithDal(DEVICE_ID_COE_RADIO, DEVICE_COE_RADIO_EVT_DATA_READY, body);
-        getRadio()->datagram.recv(); // wake up read code      
     }
 
     /**
