@@ -37,8 +37,8 @@ namespace mesh {
         return null;
     }
 
-    //% shim=mesh::onDataReceived
-    export function shim_onDataReceived(body: Action): void {
+    //% shim=mesh::onDataReceivedRegister
+    export function shim_onDataReceivedRegister(body: Action): void {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
@@ -178,7 +178,7 @@ namespace mesh {
     //% block="initialise mesh radio"
     export function initRadio() {
         shim_initRadio();
-        shim_onDataReceived(handleDataReceived);
+        shim_onDataReceivedRegister(handleDataReceived);
     }
 
     /**
