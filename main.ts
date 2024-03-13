@@ -159,7 +159,7 @@ namespace mesh {
 
     //% shim=mesh::onDataReceived
     //% blockHidden=1 deprecated=true
-    export function shim_onDataReceived() {
+    export function shim_onDataReceived(Action a) {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
