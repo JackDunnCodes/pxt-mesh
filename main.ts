@@ -38,7 +38,7 @@ namespace mesh {
     }
 
     //% shim=mesh::onDataReceived
-    export function shim_onDataReceived(body: ()  => void): void {
+    export function shim_onDataReceived(body: Action): void {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
@@ -247,7 +247,7 @@ namespace mesh {
         return pkt.stringPayload;
     }
 
-    //%
+
     function handleDataReceived() {
         let stringRecvd: string = recv();
         while (stringRecvd) {
