@@ -37,6 +37,13 @@ namespace mesh {
         return null;
     }
 
+    //% shim=mesh::onDataReceived
+    export function shim_onDataReceived(body: ()  => void): void {
+        // TODO: Figure out how the simulator differentiates between micro:bit
+        //       versions
+        return;
+    }
+
     function truncateString(str: string, bytes: number) {
         str = str.slice(0, bytes);
         let buff = control.createBufferFromUTF8(str);
@@ -158,12 +165,7 @@ namespace mesh {
     }
     
 
-    //% shim=mesh::onDataReceived
-    export function shim_onDataReceived(body: Action): void {
-        // TODO: Figure out how the simulator differentiates between micro:bit
-        //       versions
-        return;
-    }
+    
     
 
     /**
