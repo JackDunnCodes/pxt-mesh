@@ -65,6 +65,7 @@ namespace mesh {
             return NULL;
     }
 
+    //%
     void onDataReceived(Action body) {
         // if (radioEnable() != DEVICE_OK) return;
 
