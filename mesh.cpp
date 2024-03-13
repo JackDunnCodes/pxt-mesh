@@ -65,7 +65,10 @@ namespace mesh {
         } else
             return NULL;
     }
-
+    void onDataReceived(MicroBitEvent e, void *action) {
+            // if (radioEnable() != DEVICE_OK) return;
+            runAction1((Action)action, fromInt(e.value));
+        }
     //%
     void onDataReceivedRegister(Action body) {
         // if (radioEnable() != DEVICE_OK) return;
@@ -73,10 +76,7 @@ namespace mesh {
     }
 
     //%
-    void onDataReceived(MicroBitEvent e, void *action) {
-        // if (radioEnable() != DEVICE_OK) return;
-        runAction1((Action)action, fromInt(e.value));
-    }
+    
 
     /**
      * This function uses the C preprocessor to compile different code
