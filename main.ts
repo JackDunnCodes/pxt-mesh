@@ -247,6 +247,7 @@ namespace mesh {
         return pkt.stringPayload;
     }
 
+    //%
     function handleDataReceived() {
         let stringRecvd: string = recv();
         while (stringRecvd) {
