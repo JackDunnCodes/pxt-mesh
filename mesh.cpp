@@ -67,10 +67,15 @@ namespace mesh {
     }
 
     //%
-    void onDataReceived(Action body) {
+    void onDataReceivedRegister(Action body) {
         // if (radioEnable() != DEVICE_OK) return;
+        uBit.messageBus.listen(DEVICE_ID_COE_RADIO, DEVICE_COE_RADIO_EVT_DATA_READY, onDataReceived, body); 
+    }
 
-        registerWithDal(DEVICE_ID_COE_RADIO, DEVICE_COE_RADIO_EVT_DATA_READY, body);
+    //%
+    void onDataReceived(MicroBitEvent e, void *action) {
+        // if (radioEnable() != DEVICE_OK) return;
+        runAction1((Action)action, fromInt(e.value));
     }
 
     /**
