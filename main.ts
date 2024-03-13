@@ -10,7 +10,7 @@
  */
 
 // Icon unicode characters can be found at: http://fontawesome.io/icons/
-//% color=#f44708 weight=100 icon="\uf542" block="mesh:bit" advanced=false
+//% color=#f44708 weight=100 icon="\uf0b2" block="mesh:bit" advanced=false
 namespace mesh {
     const RADIO_MAX_PACKET_SIZE = 260;
     let debug = false;
@@ -138,6 +138,7 @@ namespace mesh {
         //         case PACKET_TYPE_NUMBER:
         //         case PACKET_TYPE_VALUE:
         //             this.data.setNumber(NumberFormat.Int32LE, PACKET_PREFIX_LENGTH, val);
+    //% blockHidden=1 deprecated=true
         //             break;
         //         case PACKET_TYPE_DOUBLE:
         //         case PACKET_TYPE_DOUBLE_VALUE:
@@ -158,8 +159,7 @@ namespace mesh {
     
 
     //% shim=mesh::onDataReceived
-    //% blockHidden=1 deprecated=true
-    export function shim_onDataReceived(a: Action) {
+    export function shim_onDataReceived(body: Action): void {
         // TODO: Figure out how the simulator differentiates between micro:bit
         //       versions
         return;
